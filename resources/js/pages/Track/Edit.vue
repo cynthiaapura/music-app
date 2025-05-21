@@ -4,7 +4,7 @@
 
   <MusicLayout>
     <template #title>
-      Tracks
+      Modifier : {{ track.title }}
     </template>
 
     <template #action>

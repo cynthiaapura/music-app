@@ -4,7 +4,7 @@
 
   <MusicLayout>
     <template #title>
-      Tracks
+      Listes des musiques
     </template>
 
     <template #action>
