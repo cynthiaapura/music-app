@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\TrackController;
 use App\Http\Middleware\IsAdmin;
+use App\Http\Controllers\ApiKeyController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -33,3 +34,7 @@ Route::prefix('/')->name('tracks.')->group(function () {
 });
 
 Route::resource('playlists', PlaylistController::class)->middleware('auth');
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('api-keys', ApiKeyController::class)->only(['index', 'create', 'store', 'destroy']);
+});

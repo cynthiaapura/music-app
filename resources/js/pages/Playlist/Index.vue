@@ -18,6 +18,12 @@
         <ul>
           <li v-for="playlist in playlists" :key="playlist.uuid">
             {{ playlist.title }} [{{ playlist.tracks_count }} musiques]
+            |
+            <Link :href="route('playlists.edit', { playlist: playlist })">Modifier</Link>
+            |
+            <Link :href="route('playlists.show', { playlist: playlist })">Voir</Link>
+            |
+            <Link :href="route('playlists.destroy', { playlist: playlist })" method="delete" as="button">Supprimer</Link>
           </li>
         </ul>
       </div>
@@ -25,7 +31,7 @@
   </MusicLayout>
 </template>
 
-<script>
+<script lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
 import MusicLayout from '@/layouts/MusicLayout.vue';
 
