@@ -22,7 +22,7 @@ class PlaylistRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max255'],
+            'title' => ['required', 'string', 'max:255'],
             'tracks' => ['required', 'array'],
             'tracks.*' => ['required', 'string', 'uuid'],
         ];

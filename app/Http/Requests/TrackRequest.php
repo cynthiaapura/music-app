@@ -21,22 +21,12 @@ class TrackRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [
+        return [
             'title' => ['required', 'string', 'min:5', 'max:255'],
             'artist' => ['required', 'string', 'min:5', 'max:50'],
             'display' => ['required', 'boolean'],
+            'image' => ['nullable', 'file', 'image'],
+            'music' => ['required', 'file', 'extensions:mp3,wav']
         ];
-
-        if ($this->isMethod('post')) {
-            $rules['music'] = ['required', 'file', 'mimes:mp3,wav'];
-            $rules['image'] = ['nullable', 'file', 'image'];
-        }
-
-        if ($this->isMethod('put') || $this->isMethod('patch')) {
-            $rules['music'] = ['nullable', 'file', 'mimes:mp3,wav'];
-            $rules['image'] = ['nullable', 'file', 'image'];
-        }
-
-        return $rules;
     }
 }

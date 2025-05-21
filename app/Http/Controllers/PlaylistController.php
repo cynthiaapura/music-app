@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PlaylistRequest;
 use App\Models\Playlist;
 use App\Models\Track;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
-use Stringable;
 
 class PlaylistController extends Controller
 {
@@ -19,6 +18,7 @@ class PlaylistController extends Controller
     public function index()
     {
         $playlists = Playlist::all();
+
         return Inertia::render('Playlist/Index', [
             'playlists' => $playlists,
         ]);
@@ -55,7 +55,7 @@ class PlaylistController extends Controller
 
         $playlist->tracks()->attach($tracks->pluck('id'));
 
-        return redirect()
+        return redirect()->route('playlists.index');
     }
 
     /**
@@ -76,7 +76,6 @@ class PlaylistController extends Controller
         return Inertia::render('Playlist/Edit', [
             'playlist' => $playlist,
         ]);
-    
     }
 
     /**
@@ -96,4 +95,4 @@ class PlaylistController extends Controller
 
         return redirect()->back();
     }
-}
+}c

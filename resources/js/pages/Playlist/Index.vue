@@ -17,9 +17,9 @@
       <div class="grid grid-cols-4 gap-4">
         <ul>
           <li v-for="playlist in playlists" :key="playlist.uuid">
-
+            {{ playlist.title }}
           </li>
-        </ul>  
+        </ul>
       </div>
     </template>
   </MusicLayout>
@@ -34,11 +34,10 @@ export default {
   components: {
     Head,
     MusicLayout,
-    Track,
     Link,
   },
   props: {
-    tracks: Array,
-  }
+    playlists: Array,
+  },
 }
 </script>

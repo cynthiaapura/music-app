@@ -27,10 +27,10 @@
         <label for="tracks" class="block text-gray-700 text-sm font-bold mb-2">Musiques</label>
         <div v-for="track in tracks" :key="track.uuid">
           <input v-model="form.tracks" type="checkbox" name="tracks" :value="track.uuid" :id="track.uuid">
-          <label :for="track.uuid"> {{ track.title }} </label>
+          <label :for="track.uuid">{{ track.title }}</label>
         </div>
 
-        <input type="submit" value="Créer la playlist"
+        <input type="submit" value="Créer la musique"
           class="text-white font-bold rounded py-2 px-4 bg-blue-500 hover:bg-blue-700">
       </form>
     </template>
@@ -51,7 +51,6 @@ export default {
   props: {
     tracks: Array,
   },
-
   data() {
     return {
       form: this.$inertia.form({
@@ -66,4 +65,4 @@ export default {
     }
   }
 }
-</script>e
+</script>

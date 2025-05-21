@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\TrackController;
 use App\Http\Middleware\IsAdmin;
-use App\Http\Controllers\PlaylistController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -22,7 +22,7 @@ Route::get('home', [HomeController::class, 'index'])->name('test');
 
 Route::prefix('tracks')->name('tracks.')->group(function () {
     Route::get('/', [TrackController::class, 'index'])->name('index');
-    
+
     Route::middleware(['auth', IsAdmin::class])->group(function () {
         Route::get('create', [TrackController::class, 'create'])->name('create');
         Route::post('/', [TrackController::class, 'store'])->name('store');
