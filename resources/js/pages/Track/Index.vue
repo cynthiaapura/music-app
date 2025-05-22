@@ -8,9 +8,16 @@
     </template>
 
     <template #action>
-      <Link v-if="$page.props.auth.isAdmin" :href="route('tracks.create')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded w-full mb-">
-      Ajouter une musique
-      </Link>
+      <div class="flex gap-2">
+        <Link v-if="$page.props.auth.isAdmin" :href="route('tracks.create')" 
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded">
+          Ajouter une musique
+        </Link>
+        <Link v-if="$page.props.auth.user" :href="route('api-keys.index')" 
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded">
+          Voir les clés API
+        </Link>
+      </div>
     </template>
 
     <template #content>

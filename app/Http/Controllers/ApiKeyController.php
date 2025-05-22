@@ -10,14 +10,14 @@ class ApiKeyController extends Controller
 {
     public function index()
     {
-        return Inertia::render('ApiKeys/Index', [
-            'keys' => auth()->user()->apiKeys
+        return Inertia::render('Api/Index', [
+        'keys' => auth()->user()->apiKeys()->orderBy('created_at', 'desc')->get()
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('ApiKeys/Create');
+        return Inertia::render('Api/Create');
     }
 
     public function store(Request $request)
@@ -34,9 +34,12 @@ class ApiKeyController extends Controller
 
     public function destroy(ApiKey $apiKey)
     {
-        $this->authorize('delete', $apiKey);
+        // Vérification manuelle de l'autorisation
+        if ($apiKey->user_id !== auth()->id()) {
+            abort(403, 'Non autorisé');
+        }
+
         $apiKey->delete();
 
-        return back();
-    }
+        return redirect()->route('api-keys.index');    }
 }

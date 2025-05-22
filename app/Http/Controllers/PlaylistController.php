@@ -24,6 +24,17 @@ class PlaylistController extends Controller
         ]);
     }
 
+    public function indexApi(Request $request)
+    {
+        $user = $request->user();
+
+        $playlists = $user->playlists()->withCount('tracks')->get();
+
+        return response()->json([
+            'playlists' => $playlists,
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

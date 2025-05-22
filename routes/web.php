@@ -38,3 +38,4 @@ Route::resource('playlists', PlaylistController::class)->middleware('auth');
 Route::middleware(['auth'])->group(function () {
     Route::resource('api-keys', ApiKeyController::class)->only(['index', 'create', 'store', 'destroy']);
 });
+
