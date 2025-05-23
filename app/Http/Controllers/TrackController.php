@@ -34,8 +34,8 @@ class TrackController extends Controller
         ]);
 
         $uuid = Str::uuid();
-        $musicPath = $request->music->storeAs('tracks/musics', $uuid . '.' . $request->music->extension());
-        $imagePath = $request->image?->storeAs('tracks/images', $uuid . '.' . $request->image->extension());
+        $musicPath = $request->music->storeAs('tracks/musics', $uuid . '.' . $request->music->extension(), 'public');
+        $imagePath = $request->image?->storeAs('tracks/images', $uuid . '.' . $request->image->extension(), 'public');
 
         Track::create([
             'uuid' => $uuid,
@@ -62,15 +62,34 @@ class TrackController extends Controller
             'title' => ['required', 'string', 'min:5', 'max:255'],
             'artist' => ['required', 'string', 'min:5', 'max:50'],
             'display' => ['required', 'boolean'],
+            'music' => ['nullable', 'file', 'mimes:mp3,wav'],
+            'image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,svg'],
         ]);
 
         $track->title = $request->title;
         $track->artist = $request->artist;
         $track->display = $request->display;
+
+        // Gestion des fichiers facultatifs
+        if ($request->hasFile('music')) {
+            $track->music = $request->file('music')->storeAs(
+                'tracks/musics',
+                $track->uuid . '.' . $request->file('music')->extension()
+            );
+        }
+
+        if ($request->hasFile('image')) {
+            $track->image = $request->file('image')->storeAs(
+                'tracks/images',
+                $track->uuid . '.' . $request->file('image')->extension()
+            );
+        }
+
         $track->save();
 
         return redirect()->route('tracks.index');
     }
+
 
     public function destroy(Track $track)
     {

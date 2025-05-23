@@ -1,5 +1,4 @@
 <template>
-
   <Head title="Tracks" />
 
   <MusicLayout>
@@ -8,8 +7,8 @@
     </template>
 
     <template #action>
-      <Link :href="route('tracks.index')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded w-full mb-">
-      Liste des musiques
+      <Link :href="route('tracks.index')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded w-full">
+        Liste des musiques
       </Link>
     </template>
 
@@ -43,15 +42,21 @@
 
         <!-- Music -->
         <div class="mb-3">
-          <label for="music" class="block text-gray-700 text-sm font-bold mb-2">Musique</label>
-          <input @input="form.music = $event.target.files[0]" type="file" name="music" id="music">
+          <label for="music" class="block text-gray-700 text-sm font-bold mb-2">Fichier audio</label>
+          <input type="file" name="music" id="music" @change="handleFileChange('music', $event)"
+            class="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4
+                   file:rounded-full file:border-0 file:text-sm file:font-semibold
+                   file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
           <div class="text-red-500 text-xs italic">{{ form.errors.music }}</div>
         </div>
 
         <!-- Image -->
         <div class="mb-3">
           <label for="image" class="block text-gray-700 text-sm font-bold mb-2">Image</label>
-          <input @input="form.image = $event.target.files[0]" type="file" name="image" id="image">
+          <input type="file" name="image" id="image" @change="handleFileChange('image', $event)"
+            class="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4
+                   file:rounded-full file:border-0 file:text-sm file:font-semibold
+                   file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
           <div class="text-red-500 text-xs italic">{{ form.errors.image }}</div>
         </div>
 
@@ -67,7 +72,7 @@ import { Head, Link } from '@inertiajs/vue3';
 import MusicLayout from '@/layouts/MusicLayout.vue';
 
 export default {
-  name: 'Index',
+  name: 'CreateTrack',
   components: {
     Head,
     MusicLayout,
@@ -85,9 +90,16 @@ export default {
     }
   },
   methods: {
+    handleFileChange(field, event) {
+      this.form[field] = event.target.files[0];
+    },
     send() {
-      // this.$inertia.post(route('tracks.store'), this.form);
-      this.form.post(route('tracks.store'));
+      this.form.post(route('tracks.store'), {
+        forceFormData: true,
+        onSuccess: () => {
+          // Optionnel : succès UX
+        },
+      });
     }
   }
 }

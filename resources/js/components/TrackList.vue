@@ -38,13 +38,13 @@ export default {
   methods: {
     playTrack(track) {
       if (! this.currentTrack) {
-        this.audio = new Audio('storage/' + track.music);
+        this.audio = new Audio('/storage/' + track.music);
         this.audio.play();
       } else if (this.currentTrack === track.uuid) {
         this.audio.paused ? this.audio.play() : this.audio.pause();
       } else {
         this.audio.pause();
-        this.audio.src = 'storage/' + track.music;
+        this.audio.src = '/storage/' + track.music;
         this.audio.play();
       }
 
