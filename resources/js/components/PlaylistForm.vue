@@ -1,24 +1,38 @@
 <template>
   <form @submit.prevent="send">
-    <!-- Title -->
-    <div class="mb-3">
-      <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Titre</label>
-      <input v-model="form.title" type="text" name="title" id="title"
-        class="shadow border rounded py-2 px-3 text-gray-700 appearance-none leading-tight focus:outline-none focus:shadow-outline mb-2"
-        :class="{ 'border-red-500': form.errors.title }">
-      <div class="text-red-500 text-xs italic">{{ form.errors.title }}</div>
+    <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Titre</label>
+
+    <div class="flex items-center gap-4 mb-1">
+      <input
+        v-model="form.title"
+        type="text"
+        name="title"
+        id="title"
+        class="flex-grow shadow border rounded py-2 px-3 text-gray-700 appearance-none leading-tight focus:outline-none focus:shadow-outline"
+        :class="{ 'border-red-500': form.errors.title }"
+      />
+
+      <input
+        type="submit"
+        :value="playlist ? 'Modifier la playlist' : 'Créer la playlist'"
+        class="text-white font-bold rounded py-2 px-4 bg-blue-500 hover:bg-blue-700 cursor-pointer"
+      />
+    </div>
+
+    <div v-if="form.errors.title" class="text-red-500 text-xs italic mb-4">
+      {{ form.errors.title }}
     </div>
 
     <label for="tracks" class="block text-gray-700 text-sm font-bold mb-2">Musiques</label>
-    <div v-for="track in tracks" :key="track.uuid">
-      <input v-model="form.tracks" type="checkbox" name="tracks" :value="track.uuid" :id="track.uuid">
-      <label :for="track.uuid">{{ track.title }}</label>
+    <div class="grid grid-cols-2 gap-x-4 gap-y-2 mb-4">
+      <div v-for="track in tracks" :key="track.uuid" class="flex items-center">
+        <input v-model="form.tracks" type="checkbox" :value="track.uuid" :id="track.uuid" name="tracks" class="mr-2" />
+        <label :for="track.uuid" class="select-none">{{ track.title }}</label>
+      </div>
     </div>
-
-    <input type="submit" :value="playlist ? 'Modifier la playlist' : 'Créer la playlist'"
-      class="text-white font-bold rounded py-2 px-4 bg-blue-500 hover:bg-blue-700">
   </form>
 </template>
+
 
 <script lang="ts">
 export default {

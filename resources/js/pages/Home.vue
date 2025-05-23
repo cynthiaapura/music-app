@@ -1,7 +1,7 @@
 <template>
   <MusicLayout>
     <template #title>
-      Hello world
+      Bienvenue sur l'application de musique la plus chill
     </template>
 
     <template #content>
@@ -22,12 +22,7 @@ export default {
   components: {
     MusicLayout,
   },
-  data() {
-    return {
-      firstname: 'John',
-      lastname: 'Doe',
-    }
-  },
+
   computed: {
     fullName() {
       return this.firstname + ' ' + this.lastname;

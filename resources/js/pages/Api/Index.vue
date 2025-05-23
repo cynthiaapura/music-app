@@ -26,15 +26,12 @@
             <td class="border border-gray-300 px-4 py-2 font-mono break-all">{{ key.key }}</td>
             <td class="border border-gray-300 px-4 py-2">{{ new Date(key.created_at).toLocaleDateString() }}</td>
             <td class="border border-gray-300 px-4 py-2">
-              <Link
-              :href="route('api-keys.destroy', key.id)"
-              method="delete"
-              as="button"
-              class="text-red-600 hover:underline"
+            <button
               @click.prevent="handleDelete(key)"
+              class="text-red-600 hover:underline"
             >
               Supprimer
-            </Link>
+            </button>
             </td>
           </tr>
           <tr v-if="keys.length === 0">

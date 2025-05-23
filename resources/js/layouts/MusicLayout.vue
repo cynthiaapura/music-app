@@ -35,6 +35,13 @@
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 mr-3">
               Créer un compte
               </Link>
+              <span
+                v-if="$page.props.auth.user"
+                class="text-white font-medium mr-4"
+              >
+                Bonjour, {{ capitalize($page.props.auth.user.name) }}
+              </span>
+
               <Link v-if="$page.props.auth.user" :href="route('logout')" as="button" method="POST"
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded py-2 px-4 mr-3">
               Se déconnecter
@@ -67,5 +74,11 @@ export default {
   components: {
     Link,
   },
+  methods: {
+    capitalize(name: string) {
+      if (!name) return '';
+      return name.charAt(0).toUpperCase() + name.slice(1);
+    }
+  }
 }
 </script>
